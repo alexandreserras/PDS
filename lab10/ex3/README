@@ -1,0 +1,18 @@
+
+1)
+    O problema pensado para utilizar o padrão do Mediator, foi:
+    Ter um grupo de pessoas de lingua portuguesa e de lingua francesa que pretendem comunicar entre si , onde estas apenas
+    falam a sua lingua materna, e então para estas comunicarem vão precisar da ajuda
+    de um tradutor que lhe vais passar as mensagem recebidas para a sua lingua materna.
+2)
+Criamos 1 interface , uma chamada Mediator que é implementada pelo tradutor e uma classe abstrata
+chamada de Lingua que é utilizada pelas Linguas que vão comunicar com o tradutor, de salientar
+que na classe abstrata temos um atributo do tipo Mediator
+A forma como resolvemos o problema foi basicamente, ter-mos 2 dicionarios no Tradutor para converter 
+de uma lingua para outra, nas 2 vertentes, e uma depois o tradutor guarda sempre a ultima mensagem, onde guardamos tanto a mensagem
+original como a traduizda  e vai enviando sempre a quem pedir para receber a mensagem, ou seja, o utilizador vai receber
+sempre na sua lingua "materna", depois na main implementamos uma simples demonstração de interações possiveis.
+
+3)
+Como fonte utilizamos os slides da disciplina para sabermos como aplicar o padrão e o problema veio da imaginação
+dos membros do grupo.

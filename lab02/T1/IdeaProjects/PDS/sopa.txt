@@ -1,0 +1,7 @@
+STACK
+WHEPS
+RVQPC
+AQNOT
+QTOPF
+not no;
+stack

@@ -1,0 +1,1 @@
+Usaríamos o padrão strategy,  uma vez que se pretende definir um conjunto de algoritmos que têm o mesmo propósito, são uma família, sendo estes imutáveis

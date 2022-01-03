@@ -1,0 +1,192 @@
+﻿Ex4:
+        
+
+
+	
+
+
+
+protected Calendar()
+	
+
+	
+
+	   {
+	
+
+	       this(TimeZone.getDefaultRef(), Locale.getDefault(Locale.Category.FORMAT));
+	
+
+	       sharedZone = true;
+	
+
+	   }
+	Usam, um construtor protegido, ou seja, só quem estiver na package poder instanciar o objeto, e o construtor não tem nenhum argumento de entrada.
+
+
+
+
+	
+
+	 protected Calendar(TimeZone zone, LocaleaLocale)
+	
+
+	
+
+	   {
+	
+
+	       fields = new int[FIELD_COUNT];
+	
+
+	       isSet = new boolean[FIELD_COUNT];
+	
+
+	       stamp = new int[FIELD_COUNT];
+	
+
+	
+
+
+
+	
+
+	       this.zone = zone;
+	
+
+	       setWeekCountData(aLocale);
+	
+
+	   }
+	
+
+	
+
+	Tem mais  um método construtor ,mas também como protegido, este tem 2 argumentos ao contrário do primeiro, que não tem nenhum argumento, neste precisam de indiciar um Timezone e um Locale.
+No total, existem dois construtores, mas ambos protegidos.
+
+
+Logo o utilizador  para instanciar a classe precisa de  utilizar um método que chame um dos construtores, para instanciar pode usar:
+
+
+        
+
+
+	
+
+	public static Calendar getInstance()
+	
+
+	
+
+	   {
+	
+
+	       Calendar cal = createCalendar(TimeZone.getDefaultRef(), Locale.getDefault(Locale.Category.FORMAT));
+	
+
+	       cal.sharedZone = true;
+	
+
+	       return cal;
+	
+
+	   }
+	
+
+	
+
+	que chama o create calendar,  que é onde na realidade o calendario é criado, pois como podemos ver debaixo o createCalendar é que chama os construtores, que eram protegidos.
+private static Calendar createCalendar(TimeZone zone,
+                                           Locale aLocale)
+    {
+        Calendar cal = null;
+
+
+        String caltype = aLocale.getUnicodeLocaleType("ca");
+        if (caltype == null) {
+            // Calendar type is not specified.
+            // If the specified locale is a Thai locale,
+            // returns a BuddhistCalendar instance.
+            if ("th".equals(aLocale.getLanguage())
+                    && ("TH".equals(aLocale.getCountry()))) {
+                cal = new BuddhistCalendar(zone, aLocale);
+            } else {
+                cal = new GregorianCalendar(zone, aLocale);
+            }
+        } else if (caltype.equals("japanese")) {
+            cal = new JapaneseImperialCalendar(zone, aLocale);
+        } else if (caltype.equals("buddhist")) {
+            cal = new BuddhistCalendar(zone, aLocale);
+        } else {
+            // Unsupported calendar type.
+            // Use Gregorian calendar as a fallback.
+            cal = new GregorianCalendar(zone, aLocale);
+        }
+
+
+        return cal;
+    }
+Os 3 métodos que estão por baixo,  podemos usar para instanciar um calendário que vai chamar mais uma vez o create calendar , e comportar-se como foi visto em cima 
+
+
+	
+
+	  public static Calendar getInstance(TimeZone zone)
+	
+
+	
+
+	   {
+	
+
+	       return createCalendar(zone, Locale.getDefault(Locale.Category.FORMAT));
+	
+
+	   }
+	
+
+	
+
+
+
+	
+
+
+
+   public static Calendar getInstance(Locale aLocale)
+	
+
+	
+
+	   {
+	
+
+	       Calendar cal = createCalendar(TimeZone.getDefaultRef(), aLocale);
+	
+
+	       cal.sharedZone = true;
+	
+
+	       return cal;
+	
+
+	   }
+	
+
+ public static Calendar getInstance(TimeZone zone,
+	
+
+	
+
+	                                      Locale aLocale)
+	
+
+	   {
+	
+
+	       return createCalendar(zone, aLocale);
+	
+
+	   }
+	Logo podemos através de um getInstance criar varios tipos de calendários o que leva a concluir que na classe Calendar do Java é utilizado o Factory method para criar objetos do tipo Calendar.
